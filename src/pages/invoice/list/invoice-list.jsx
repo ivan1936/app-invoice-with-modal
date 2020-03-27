@@ -25,8 +25,16 @@ import { Modal, useModal } from '../../../components/modal'
 const InvoiceListPage = ({ invoices, history }) =>{
   const {isShowing, toggle} = useModal();
 
-  const [isDesc, setIsDesc] = useState(true)
-  const [colName, setColName] = useState('price')
+  const [isDesc, setIsDesc] = useState(false)
+  const [isDescCol, setIsDescCol] = useState([
+    {otkuda: false},
+    {kuda: false},
+    {poluchatel: false},
+    {status: true}
+  ])
+    
+  const [colName, setColName] = useState('status')
+
   const [isSelect, setIsSelect] = useState(true)
   const [isSelectAll, setIsSelectAll] = useState(true)
   
@@ -37,10 +45,11 @@ const InvoiceListPage = ({ invoices, history }) =>{
 
   const setSort = useCallback(
     (col) => {
-      setIsDesc(!isDesc);
+      setIsDesc(!isDesc)
+      setIsDescCol({...isDescCol, [col]: !isDescCol[col]})
+      //setIsDescCol({...item, checked: !item.checked})
       setColName(col)
-    },
-    [isDesc]
+    }, [isDesc, isDescCol]
   );
   
   const onSelect = useCallback(
@@ -91,18 +100,18 @@ const InvoiceListPage = ({ invoices, history }) =>{
         </HeaderBlockContainer>
         <HeaderBlockContainer>
           <span>откуда</span>
-          <CustomSpan isDesc={isDesc} onClick={()=>setSort('otkuda')}/>
+          <CustomSpan isDescCol={isDescCol.otkuda} onClick={()=>setSort('otkuda')}/>
         </HeaderBlockContainer><HeaderBlockContainer>
           <span>куда </span>
-          <CustomSpan isDesc={isDesc} onClick={()=>setSort('kuda')}/>
+          <CustomSpan isDescCol={isDescCol.kuda} onClick={()=>setSort('kuda')}/>
         </HeaderBlockContainer>
         <HeaderBlockContainer>
           <span>получатель </span>
-          <CustomSpan isDesc={isDesc} onClick={()=>setSort('poluchatel')}/>        
+          <CustomSpan isDescCol={isDescCol.poluchatel} onClick={()=>setSort('poluchatel')}/>        
         </HeaderBlockContainer>
         <HeaderBlockContainer>
           <span>статус</span>
-          <CustomSpan isDesc={isDesc} onClick={()=>setSort('status')}/> 
+          <CustomSpan isDescCol={isDescCol.status} onClick={()=>setSort('status')}/> 
         </HeaderBlockContainer>
         <HeaderBlockContainer>
           <span>действия</span>        

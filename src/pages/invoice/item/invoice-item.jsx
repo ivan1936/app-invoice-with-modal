@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { connect } from 'react-redux';
 
 import {
@@ -15,9 +15,10 @@ import {
 import InvoiceNewUpdatePage from '../new-update/invoice-new-update'
 import { Modal, useModal } from '../../../components/modal'
 
-const InvoiceItem = ({ invoiceItem, onChange, clearItem, history }) => {
+const InvoiceItem = ({ invoiceItem, onChange, clearItem }) => {
 
   const { checked, otkuda, kuda, poluchatel, status } = invoiceItem;
+  const [stateChecked] = useState(checked)
   const {isShowing, toggle} = useModal();
 
   return (
@@ -30,7 +31,7 @@ const InvoiceItem = ({ invoiceItem, onChange, clearItem, history }) => {
         <InvoiceNewUpdatePage id={invoiceItem.id} hide={toggle}/>
       </Modal>
 
-      <TextContainer><input type='checkbox' onChange={()=>{onChange(invoiceItem.id)}} checked={checked}/></TextContainer>
+      <TextContainer><input type='checkbox' onChange={()=>{onChange(invoiceItem.id)}} checked={checked ? checked : stateChecked}/></TextContainer>
       <TextContainer>{otkuda}</TextContainer>
       <TextContainer>{kuda}</TextContainer>
       <TextContainer>{poluchatel}</TextContainer>

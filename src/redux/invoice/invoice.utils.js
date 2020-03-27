@@ -6,13 +6,13 @@ import * as R from 'ramda'
   export const updateItem = (items, isSelect, itemId) => (
     items.map(item =>
       item.id === itemId
-        ? { ...item, checked: item.checked = !item.checked}
+        ? { ...item, checked: !item.checked}
         : item
     )
   )
   
   export const updateItems = (items, isSelectAll) => (
-    items.map(item => ( {...item, checked: item.checked = isSelectAll} ))
+    items.map(item => ( {...item, checked: isSelectAll} ))
   )
 
   export const deleteItems = (items) => (

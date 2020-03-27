@@ -14,7 +14,6 @@ import {
 
 import { 
   InvoiceNewUpdateContainer, 
-  RemoveButtonContainer, 
   CustomButtonContainer 
 } from './invoice-new-update.styles';
   
